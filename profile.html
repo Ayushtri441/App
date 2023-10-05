@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Welcome to your profile</h1>
+    <script>
+        function getUserData() {
+            const userData = JSON.parse(document.cookie || '{}');
+            return userData;
+        }
+
+        // Get user data
+        const user = getUserData();
+        // Access user data
+        const userEmail = user.email;
+        const userName = user.name;
+        console.log(user);
+        // Display user data
+        document.write(`<p>Email: ${userEmail}</p>`);
+        document.write(`<p>Name: ${userName}</p>`);
+    </script>
+</body>
+</html>

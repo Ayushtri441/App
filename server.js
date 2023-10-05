@@ -16,7 +16,6 @@ app.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
   }));
 app.use(passport.initialize())
 app.use(passport.session())
@@ -38,12 +37,20 @@ app.get( '/auth/google/failure',(req,res)=>{ res.send("Something went wrong")}
     );
 app.get('/auth/google/success',isLoggedin,(req,res)=>{ 
         console.log(req)
+        var user = req.user
+        //req.session.user = user;
        // res.send(JSON.stringify(req.user))
-        res.send(`Hello ${req.user.displayName} \n Email:-${req.user.email}`)
+       res.send(`<h1>Welcome to your profile</h1>
+       <p>Email: ${user.email}</p>
+       <p>Name: ${user.displayName}</p>
+       <a href="auth/logout">Logout</a>
+       `)
     }
-   
-       
     );
+    app.get('/auth/google/auth/logout',(req,res)=>{
+        req.session.destroy();
+        res.send("Logout Sucessful");
+    })
 app.listen(3000,()=>{
     console.log("Server is running on port 3000");
 })
